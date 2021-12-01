@@ -4,6 +4,7 @@
     <meta charset="UTF-8"">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>React - Template</title>
+    <link rel="stylesheet" type="text/css" href="../css/mmain.css">
     <script src="../../js/react.min.js"></script>
     <script src="../../js/react-dom.min.js"></script>
     <script src="../../js/browser.min.js"></script>
@@ -16,35 +17,44 @@
 
 
 
-var propertiesSelectt = React.createClass({
-            render: function() {
-                return (<div>
-                    <h1>Title</h1>
-                    <h2>Sub Title</h2>
-                    </div>
-                    );
-            }
-        });
+
+
+var Checkbox = React.createClass({
+    
+    getInitialState: function() {
+        return{checked: true}
+    },
+
+    handleChecked: function () {
+        this.setState({checked: !this.state.checked})
+    },
+    render: function (){
+        var msg;
+        if(this.state.checked){
+            msg = 'checked'
+        }else{
+            msg = 'unchecked'
+        }
+        return (
+            <div>
+                <input type="Checkbox" onChange={this.handleChecked} defaultChecked={this.state.checked} />
+                <h3>checkbox is {msg}</h3>
+                </div>
+        );
+    }
+    }
+);
 
 
 
-var BuckyCoftmponent33 = React.createClass({
-            render: function() {
-                return (<div>
-                    <h1>{this.props.title}</h1>
-                    <h2>{this.props.genre}</h2>
-                    </div>
-                );
-            }
-        });
 
-
-        ReactDOM.render(<div>
-            <BuckyCoftmponent33 title="aventar" genre="action"/>
-            <BuckyCoftmponent33 title="blob" genre="gore"/>
-            <BuckyCoftmponent33 title="castaway" genre="adventure"/>
-            </div>
-            , document.getElementById('container')
+        ReactDOM.render(  <Checkbox />
+            // <div classname="board">
+            //     <Comment>hey now</Comment>
+            //     <Comment>hey now don't dream its over</Comment>
+            //     <Comment>hey now hey now</Comment>
+            //     </div>
+                , document.getElementById('container')
         );
     </script>
 
