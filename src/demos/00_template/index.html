@@ -17,16 +17,53 @@
 
 
 
+var Comment = React.createClass({
+    getInitialState: function () {
+        return {editing: false}
+    },
 
+    edit: function () {
+        this.setState({editing: true});
+    },
+    remove: function(){
+        alert('remivi comment');
+    },
+    save: function () {
+       this.setState({editing: false});
+    },
+ 
+    renderNormal: function() {
+                return (
+                    <div classname="commentContainer">
+                  <div classname="commentText">{this.props.children}</div>
+                  <button onClick={this.edit} classname="button-primary">Edit</button>
+                  <button onClick={this.remove} classname="button-danger">Removve</button>
+                    </div>
+                    );
+    },
+    renderForm: function() {
+                return (
+                    <div classname="commentContainer">
+                  <textArea defaultValue={this.props.children}></textArea>
+                  <button onClick={this.save} classname="button-success">Save</button>
+                    </div>
+                    );
+    },
+    render: function () {
+        if(this.state.editing){
+            return this.renderForm();
+        }
+    else{
+        return this.renderNormal();
+    }
+    }
+    
+        });
 
 var Checkbox = React.createClass({
     
     getInitialState: function() {
         return{checked: true}
-    },
-
-    handleChecked: function () {
-        this.setState({checked: !this.state.checked})
     },
     render: function (){
         var msg;
@@ -37,7 +74,7 @@ var Checkbox = React.createClass({
         }
         return (
             <div>
-                <input type="Checkbox" onChange={this.handleChecked} defaultChecked={this.state.checked} />
+                <input type="Checkbox"/>
                 <h3>checkbox is {msg}</h3>
                 </div>
         );
@@ -48,15 +85,26 @@ var Checkbox = React.createClass({
 
 
 
-        ReactDOM.render(  <Checkbox />
-            // <div classname="board">
-            //     <Comment>hey now</Comment>
-            //     <Comment>hey now don't dream its over</Comment>
-            //     <Comment>hey now hey now</Comment>
-            //     </div>
-                , document.getElementById('container')
+        ReactDOM.render(
+            <div classname="board">
+                <Comment>hey now</Comment>
+                <Comment>hey now don't dream its over</Comment>
+                <Comment>hey now hey now</Comment>
+                </div>, document.getElementById('container')
         );
     </script>
 
 </body>
 </html>
+
+
+
+
+
+
+
+    
+    
+    
+    
+         
