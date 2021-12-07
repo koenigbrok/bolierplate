@@ -24,13 +24,14 @@ var Comment = React.createClass({
 
     edit: function () {
         this.setState({editing: true});
+
     },
     remove: function(){
         alert('remivi comment');
+        this.props.deletFromBoard(this.props.index)
     },
     save: function () {
-        var val = this.refs.newText.value;
-        console.log("new Comment :  "  + val);
+        this.props.updateCommentText(this.refs.newText.value, this.props.index);
        this.setState({editing: false});
     },
  
@@ -94,17 +95,34 @@ getInitialState: function () {
         ]
     }
 },
+
+removeComment: function (i) {
+    console.log('removing comment: ' + i);
+    var arr = this.state.comments;
+    arr.splice(i, 1);
+    this.setState({comments: arr})
+},
+
+updateComments: function (newText, i) {
+    console.log('updating  comment' );
+    var arr = this.state.comments;
+    arr[i] = newText;
+    this.setState({comments: arr})
+},
+
+eachComment: function name(text, i) {
+    return (
+         <Comment  key={i} index={i} updateCommentText={this.updateComments} deletFromBoard={this.removeComment
+        }>
+            {text}
+            </Comment>
+         );
+},
 render: function () {
     return (
         <div classname="board">
-                {
-                    this.state.comments.map(
-                        function (text, i) {
-                            return ( <Comment key={i}>{text}</Comment>);
-                        }
-                    )
-                }
-                </div>
+            {this.state.comments.map( this.eachComment)}
+        </div>
     );
 }
 });
